@@ -30,7 +30,10 @@ gulp.task('styles', function() {
               style: 'expanded',
               precision: 10
           }))
-          .pipe($.autoprefixer('last 1 version'))
+          .on('error', function(err) {
+              console.log(err.message);
+          })
+          //.pipe($.autoprefixer('last 1 version'))
           .pipe(gulp.dest('.tmp/styles'))
           .pipe($.size());
 });

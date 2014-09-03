@@ -1,6 +1,10 @@
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/normalize";
 @import "helpers/mixins";
 
+img {
+    width: 100%;
+}
+
 .slider {
     position: relative;
     width: 100%;
@@ -14,8 +18,6 @@
     
         position: relative;
         @extend %clearfix;
-
-        transition: transform .35s;
     }
 
     li {
@@ -26,8 +28,6 @@
         //margin: 1.5%;
 
         position: absolute;
-
-        transition: all 1s;
         
         // for dev purposes only remove for dist
         $colors: red, blue, green, orange;
@@ -37,14 +37,35 @@
             $color: nth($colors, $i);
             
             &:nth-of-type(#{$i}) {
-                background: $color;
+                background-color: $color;
+                background-image: url(http://lorempixel.com/400/200/sports/#{$i});
+                background-repeat: no-repeat;
+                background-position: center center;
+                //background-size: cover;
             }
         }
+    }
+}
 
+// don't show transition on active slider because we will see resize
+ul:not(.slider-active) li {
+    transition: all 1s;
+
+    &.slide-active {
+        width: 100%;
+        left: 0 !important;
+        z-index: 999;
+    }
+}
+
+.slider-active {
+    transition: transform .35s;
+}
+
+.slider-nav {
+    li {
         &.slide-active {
-            width: 100%;
-            left: 0 !important;
-            z-index: 999;
+            font-weight: bold;
         }
     }
 }
